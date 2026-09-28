@@ -1,0 +1,11 @@
+<CommunityApplications>
+  <Profile>
+Cerious DevTech Community Applications repository.
+
+This repository provides the official Unraid Community Applications template for Cerious AASM (Ark: Survival Ascended Server Manager), a self-hosted server management application with a web interface, SteamCMD/Proton support, and management tooling for dedicated ARK servers.
+
+Project and support:
+https://github.com/ryoucerious/cerious-aasm
+  </Profile>
+  <WebPage>https://github.com/ryoucerious/cerious-aasm</WebPage>
+</CommunityApplications>

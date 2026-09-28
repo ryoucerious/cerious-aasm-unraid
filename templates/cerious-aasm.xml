@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<Container version="2">
+  <Name>Cerious-AASM</Name>
+  <Repository>ghcr.io/ryoucerious/cerious-aasm:latest</Repository>
+  <Registry>https://ghcr.io/ryoucerious/cerious-aasm</Registry>
+  <Network>host</Network>
+  <Shell>bash</Shell>
+  <Privileged>false</Privileged>
+
+  <Icon>https://raw.githubusercontent.com/ryoucerious/cerious-aasm/main/logo-square-256.png</Icon>
+
+  <WebUI>http://[IP]:[PORT:3000]</WebUI>
+
+  <Overview>
+Cerious AASM is a self-hosted Ark: Survival Ascended server manager with a web interface. It manages dedicated ARK server installations using SteamCMD/Proton and provides server configuration and management from your browser.
+
+This Unraid template uses host networking so game, query, peer, and RCON ports can be managed directly on the Unraid host without maintaining large Docker port mappings.
+  </Overview>
+
+  <Project>https://github.com/ryoucerious/cerious-aasm</Project>
+  <Support>https://github.com/ryoucerious/cerious-aasm/issues</Support>
+  <TemplateURL>https://raw.githubusercontent.com/ryoucerious/cerious-aasm-unraid/main/templates/cerious-aasm.xml</TemplateURL>
+  <ReadMe>https://raw.githubusercontent.com/ryoucerious/cerious-aasm-unraid/main/README.md</ReadMe>
+
+  <Category>GameServers: Tools:</Category>
+  <ExtraSearchTerms>ARK ASA Ark Survival Ascended server manager AASM SteamCMD Proton game server</ExtraSearchTerms>
+
+  <Requires>
+An x86-64 Unraid server with Docker enabled. Internet access is required to pull the container image and download/update dedicated server files. Host networking is used for game-server connectivity.
+  </Requires>
+
+  <Changes>
+2026-09-27: Initial Unraid Community Applications template.
+  </Changes>
+  <Date>2026-09-27</Date>
+  <License>MIT</License>
+
+  <Config Name="AASM Data"
+          Target="/home/aasm/.local/share/cerious-aasm"
+          Default="/mnt/user/appdata/cerious-aasm"
+          Mode="rw"
+          Description="Persistent Cerious AASM application data and managed server data."
+          Type="Path"
+          Display="always"
+          Required="true"
+          Mask="false"/>
+
+  <Config Name="AASM Config"
+          Target="/home/aasm/.config"
+          Default="/mnt/user/appdata/cerious-aasm/config"
+          Mode="rw"
+          Description="Persistent application configuration."
+          Type="Path"
+          Display="always"
+          Required="true"
+          Mask="false"/>
+
+  <Config Name="Web UI Port"
+          Target="AASM_PORT"
+          Default="3000"
+          Description="Port used by the Cerious AASM web interface. With host networking this port is opened directly on the Unraid host."
+          Type="Variable"
+          Display="always"
+          Required="true"
+          Mask="false"/>
+
+  <Config Name="Authentication Enabled"
+          Target="AASM_AUTH_ENABLED"
+          Default="false"
+          Description="Enable Cerious AASM web authentication (true/false)."
+          Type="Variable"
+          Display="always"
+          Required="true"
+          Mask="false"/>
+
+  <Config Name="Username"
+          Target="AASM_USERNAME"
+          Default="admin"
+          Description="Cerious AASM web authentication username."
+          Type="Variable"
+          Display="always"
+          Required="false"
+          Mask="false"/>
+
+  <Config Name="Password"
+          Target="AASM_PASSWORD"
+          Default=""
+          Description="Cerious AASM web authentication password. Set this when authentication is enabled."
+          Type="Variable"
+          Display="always"
+          Required="false"
+          Mask="true"/>
+
+  <Config Name="Network Mode Indicator"
+          Target="AASM_NETWORK"
+          Default="host"
+          Description="Tells AASM that it is running with host networking so its firewall UI can present host-level networking guidance."
+          Type="Variable"
+          Display="advanced"
+          Required="true"
+          Mask="false"/>
+
+  <Config Name="Node Environment"
+          Target="NODE_ENV"
+          Default="production"
+          Description="Node runtime environment."
+          Type="Variable"
+          Display="advanced"
+          Required="true"
+          Mask="false"/>
+</Container>
