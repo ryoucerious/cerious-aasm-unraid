@@ -38,13 +38,16 @@ An x86-64 Unraid server with Docker enabled. Internet access is required to pull
   </Requires>
 
   <Changes>
+2026-09-28:
+- Added PUID, PGID and UMASK. The container now takes ownership of the appdata folders, including nested folders, and runs as nobody:users (99:100) by default. Fixes "permission denied" errors at startup. Requires Cerious AASM 1.2.1 or newer.
+
 2026-09-27:
 - Initial Unraid Community Applications template.
 - Separated persistent data and configuration directories.
 - Added official Cerious AASM application icon.
   </Changes>
 
-  <Date>2026-09-27</Date>
+  <Date>2026-09-28</Date>
 
   <License>MIT</License>
 
@@ -72,6 +75,36 @@ An x86-64 Unraid server with Docker enabled. Internet access is required to pull
     Type="Path"
     Display="always"
     Required="true"
+    Mask="false"/>
+
+  <Config
+    Name="PUID"
+    Target="PUID"
+    Default="99"
+    Description="User ID that owns the appdata folders and runs the app. 99 is Unraid's nobody user."
+    Type="Variable"
+    Display="advanced"
+    Required="true"
+    Mask="false"/>
+
+  <Config
+    Name="PGID"
+    Target="PGID"
+    Default="100"
+    Description="Group ID that owns the appdata folders and runs the app. 100 is Unraid's users group."
+    Type="Variable"
+    Display="advanced"
+    Required="true"
+    Mask="false"/>
+
+  <Config
+    Name="UMASK"
+    Target="UMASK"
+    Default="000"
+    Description="Permissions mask for files the app creates. 000 matches Unraid's other appdata containers."
+    Type="Variable"
+    Display="advanced"
+    Required="false"
     Mask="false"/>
 
   <!-- ================================================================ -->

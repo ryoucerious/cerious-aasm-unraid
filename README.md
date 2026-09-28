@@ -16,8 +16,16 @@ Persistent paths:
 
 | Container path | Default Unraid path |
 | --- | --- |
-| `/home/aasm/.local/share/cerious-aasm` | `/mnt/user/appdata/cerious-aasm` |
+| `/home/aasm/.local/share/cerious-aasm` | `/mnt/user/appdata/cerious-aasm/data` |
 | `/home/aasm/.config` | `/mnt/user/appdata/cerious-aasm/config` |
+
+The two folders sit side by side, so neither is nested in the other.
+
+## Permissions
+
+The container runs the app as `PUID`/`PGID`, which default to Unraid's `nobody:users` (`99:100`). On each start it gives that user ownership of both appdata folders, including every nested folder and any file left behind with a different owner, so they never need fixing by hand. It only changes files whose owner is wrong, so restarts stay quick. `UMASK` (default `000`) sets the permissions of new files.
+
+Requires Cerious AASM 1.2.1 or newer. Earlier images ran as a fixed user and stopped at startup with `EACCES: permission denied` when the appdata folders belonged to `nobody:users` or root.
 
 The Web UI is available on port `3000` by default.
 
